@@ -1,7 +1,7 @@
 ---
 title: "Responsiveness in immigration enforcement"
-author: "Angelo Dagonel (TF)"
-description: "County-level ICE compliance under constituent preferences and electoral dynamics"
+author: "Conor Cunningham"
+description: "Key Short-Term Indicators Based on OECD Country Imports"
 output:
   distill::distill_article:
     self_contained: false
@@ -9,8 +9,10 @@ output:
 
 
 
-## Project thoughts
+## I am interested in looking at the economies of OECD countries and how we can determine short term economic trends based on the import data found on the OECD website under the general statistics section: https://stats.oecd.org/ 
 
+
+EXAMPLE:
 I am interested in exploring data related to immigration enforcement and immigration preferences. A working project with Asya Magazinnik (Massachusetts Institute of Technology) explores how county-level compliance of Sheriff's offices with ICE detainer requests relates to ideal point estimates of immigration preferences. Specifically: our project asks whether the public's immigration preferences, restrictive or accommodating, influences how local law enforcement agencies comply with bureaucratic delegation from ICE.
 
 To investigate this relationship, we are relying on data from three different sources:
