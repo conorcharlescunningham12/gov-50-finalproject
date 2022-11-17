@@ -1,7 +1,7 @@
 ---
-title: "Responsiveness in immigration enforcement"
+title: "Protest and Government Crisis"
 author: "Conor Cunningham"
-description: "Key Short-Term Indicators Based on OECD Country Imports"
+description: "Correlation between civic unrest and government crisis"
 output:
   distill::distill_article:
     self_contained: false
@@ -9,7 +9,9 @@ output:
 
 
 
-## I am interested in looking at the economies of OECD countries and how we can determine short term economic trends based on the import data found on the OECD website under the general statistics section: https://stats.oecd.org/ 
+
+
+##Does the amount of anti government protests correlate with the number of government crisis? From first glance it would seem that this would be the logical assumtion. I want to determine if this is really the case. I will use the data set "Political Violence" to determine this. My two variables will be "govtcrisis =  Major Government Crises: Any rapidly developing situation" and "agovdem = antigovernment demonstrations." If it is indeed the case, I would like to know to what extent they are corelated. How much does the quantity of anti-government demonstrations corelate with the quantity of government crisisis. I hypothesis that the amount of anti-government crisis WILL correlate with an increase in the amount anti-government protests. Therefore this will be a positive regression with the number of anti-government protests being the dependent variable and the number of government crisis being the independent variable. To prove this I will look to see if there is a greater number of government crisis when there is an increase in the amount of anti-government protests. The data set is made up of 208 identified government structures indicated by "country." For each variable there are also three data sets divided by year and I will look at all three (60's,70's,80,s) together. 
 
 
 EXAMPLE:
