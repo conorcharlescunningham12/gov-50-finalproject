@@ -14,18 +14,114 @@ output:
 ##Does the amount of anti government protests correlate with the number of government crisis? From first glance it would seem that this would be the logical assumtion. I want to determine if this is really the case. I will use the data set "Political Violence" to determine this. My two variables will be "govtcrisis =  Major Government Crises: Any rapidly developing situation" and "agovdem = antigovernment demonstrations." If it is indeed the case, I would like to know to what extent they are corelated. How much does the quantity of anti-government demonstrations corelate with the quantity of government crisisis. I hypothesis that the amount of anti-government crisis WILL correlate with an increase in the amount anti-government protests. Therefore this will be a positive regression with the number of anti-government protests being the dependent variable and the number of government crisis being the independent variable. To prove this I will look to see if there is a greater number of government crisis when there is an increase in the amount of anti-government protests. The data set is made up of 208 identified government structures indicated by "country." For each variable there are also three data sets divided by year and I will look at all three (60's,70's,80,s) together. 
 
 
-EXAMPLE:
-I am interested in exploring data related to immigration enforcement and immigration preferences. A working project with Asya Magazinnik (Massachusetts Institute of Technology) explores how county-level compliance of Sheriff's offices with ICE detainer requests relates to ideal point estimates of immigration preferences. Specifically: our project asks whether the public's immigration preferences, restrictive or accommodating, influences how local law enforcement agencies comply with bureaucratic delegation from ICE.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(gapminder)
+library(tidyverse)
+```
 
-To investigate this relationship, we are relying on data from three different sources:
+```{r, fig.width = 11, fig.height = 4}
+plot_ <- violence%>%
+  ggplot(aes(x=democ70,y=riots70))+
+  geom_point()+
+  geom_smooth()+
+  xlab("Measure of Democracy in the 70s")+
+  ylab("Number of Riots in the 70s")
 
-1. [Transactional Records Access Clearinghouse (TRAC)](https://trac.syr.edu/immigration/) data on detainer requests sent to county Sheriff's offices from the Department of Homeland Security's sub-agency Immigration Customs and Enforcement (ICE);
+plot_
+```
+govtcris60
 
-2. [Coooperative Election Study (CES)](https://cces.gov.harvard.edu/) data on immigration policy preferences; and
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=riots60,y=govtcris60))+
+  geom_point(position = "jitter")+
+  geom_smooth()+
+  xlab("Number of riots in the 60s")+
+  ylab("Number of Government Crisis in the 60s")
 
-3. novel data of county-level Sheriff elections and electoral type--partisan or non-partisan elections, non-electoral appointment.
+plot_
+```
 
-TRAC data provides us with our outcome variable, the proportion of ICE detainer requests that are complied with; CES data provides us with our explanatory variable, public immigration policy preferences; and the Sheriff electoral data provides us with a grouping variable.
+
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=riots60,y=surp60))+
+  geom_point(position = "jitter")+
+  geom_smooth()+
+  xlab("Number of riots in the 60s")+
+  ylab("Fiscal Surplus/GDP: Decade average of ratio of central government surplus")
+
+plot_
+```
+
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=riots60,y=newspaperPC60))+
+  geom_point(position = "jitter")+
+  geom_smooth()+
+  xlab("Number of riots in the 60s")+
+  ylab("Newspapers per capita")
+
+plot_
+```
+
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=riots60,y=tvPC60))+
+  geom_point(position = "jitter")+
+  geom_smooth()+
+  xlab("Number of riots in the 60s")+
+  ylab("TVs per capita in the 60s")
+
+plot_
+```
+
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=riots70,y=democ70))+
+  geom_point(position = "jitter")+
+  geom_smooth()+
+  xlab("Number of riots in the 70s")+
+  ylab("Quality of democracy in the 70s")
+
+plot_
+```
 
 
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=tvPC70,y=democ70))+
+  geom_point(position = "jitter")+
+  geom_smooth()+
+  xlab("TVs per capita in the 70s")+
+  ylab("Quality of the democracy in the 70s")
+
+plot_
+```
+
+
+```{r, fig.width = 8, fig.height = 3}
+plot_ <- violence%>%
+  ggplot(aes(x=newspaperPC60,y=riots60))+
+  geom_point()+
+  geom_smooth()+
+  xlab("Number of riots in the 60s")+
+  ylab("Number of Government Crisis in the 60s")
+
+plot_
+```
+
+
+```{r, fig.width = 11, fig.height = 4}
+plot_ <- 
+ggplot(data = violence, mapping = aes(x = agovdem60, y = govtcris60)) +
+geom_line(mapping = aes(group = country), color = "gray70") +
+geom_smooth(method = "loess", se = FALSE, size=1.1) +
+labs (x = "antigovernment protests", y = "Major Governemnt Crisis", title = "Antigovernment and Governmental Crisis", caption = "Source: Violence") +
+facet_wrap(~continent, nrow = 1) 
+
+
+plot_ 
+```
 
