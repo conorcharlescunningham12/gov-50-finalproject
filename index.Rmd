@@ -1,18 +1,11 @@
 ---
-title: "Protest and Government Crisis"
+title: "Democracy and economic prosperity. Are they really connected?"
 author: "Conor Cunningham"
-description: "Correlation between civic unrest and government crisis"
+description: "An observational analysis of the relationship between democracy and economic prosperity"
 output:
   distill::distill_article:
     self_contained: false
 ---
-
-
-
-
-
-##Does the amount of anti government protests correlate with the number of government crisis? From first glance it would seem that this would be the logical assumtion. I want to determine if this is really the case. I will use the data set "Political Violence" to determine this. My two variables will be "govtcrisis =  Major Government Crises: Any rapidly developing situation" and "agovdem = antigovernment demonstrations." If it is indeed the case, I would like to know to what extent they are corelated. How much does the quantity of anti-government demonstrations corelate with the quantity of government crisisis. I hypothesis that the amount of anti-government crisis WILL correlate with an increase in the amount anti-government protests. Therefore this will be a positive regression with the number of anti-government protests being the dependent variable and the number of government crisis being the independent variable. To prove this I will look to see if there is a greater number of government crisis when there is an increase in the amount of anti-government protests. The data set is made up of 208 identified government structures indicated by "country." For each variable there are also three data sets divided by year and I will look at all three (60's,70's,80,s) together. 
-
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -20,108 +13,84 @@ library(gapminder)
 library(tidyverse)
 ```
 
-```{r, fig.width = 11, fig.height = 4}
-plot_ <- violence%>%
-  ggplot(aes(x=democ70,y=riots70))+
-  geom_point()+
-  geom_smooth()+
-  xlab("Measure of Democracy in the 70s")+
-  ylab("Number of Riots in the 70s")
-
-plot_
-```
-govtcris60
-
-```{r, fig.width = 8, fig.height = 3}
-plot_ <- violence%>%
-  ggplot(aes(x=riots60,y=govtcris60))+
-  geom_point(position = "jitter")+
-  geom_smooth()+
-  xlab("Number of riots in the 60s")+
-  ylab("Number of Government Crisis in the 60s")
-
-plot_
+```{r}
+violence <- read.csv("violence.csv")
 ```
 
 
-```{r, fig.width = 8, fig.height = 3}
-plot_ <- violence%>%
-  ggplot(aes(x=riots60,y=surp60))+
-  geom_point(position = "jitter")+
-  geom_smooth()+
-  xlab("Number of riots in the 60s")+
-  ylab("Fiscal Surplus/GDP: Decade average of ratio of central government surplus")
+##Introduction
 
-plot_
+##Is a freer democracy more economically prosperous? At first glance, it seems this would be the logical assumption. To answer this question, I used the Political Violence data set that was provided on the Gov 50 website to look at this relationship. This project consists of an observational research design because we are taking data from real-life observations rather than a controlled experiment.
+
+##Data and Research Design
+
+##To do this, I chose two separate variables from two different decades to create separate bivariate plots. The dependent variable is the measure of democracy based on Gastil's Political Rights definition (democ70 and democ80). The independent/explanatory variable is the log of real per capita GDP measured at the start of each decade (lrgdp70 and lrgdp80). 
+##For the dependent variable, the measure of democracy, it is important that we establish what this means. The Gastil scale rates a country’s democracy based on a scale of 1-7, with 1 being the most free or best democracy and 7 being the least free or worst democracy. Therefore, a negative correlation between these two variables would indicate that the better the democracy that there is also a higher level of economic prosperity.
+
+
+```{r}
+ggplot(violence, aes(democ70)) +
+  geom_histogram() +
+  labs(x="Number of countries", y="Democracy score in the 70s")
+
 ```
 
-```{r, fig.width = 8, fig.height = 3}
-plot_ <- violence%>%
-  ggplot(aes(x=riots60,y=newspaperPC60))+
-  geom_point(position = "jitter")+
-  geom_smooth()+
-  xlab("Number of riots in the 60s")+
-  ylab("Newspapers per capita")
-
-plot_
+```{r}
+ggplot(violence, aes(democ80)) +
+  geom_histogram()+
+  labs(x="Number of countries", y="Democracy score in the 80s")
 ```
 
+##In my project, I would like to explore and determine whether there is indeed a negative correlation between the quality of democracy and the economic prosperity of a given country. I predict that my results will display a negative correlation, with the measure of democracy being the dependent variable and the log of the GDP per capita being the independent variable. To prove this, I will look to see if there is increased economic prosperity when there is a higher democracy score for a given country (value closer to 0 on the y-axis). The Political Violence data set is made up of 208 identified government structures indicated by "country." For each variable, there are also three data sets divided by year, and I will look at only two (70s, 80s) because the measure of democracy was not given for the 1960s in the data set for any country. 
+
+##Results
 ```{r, fig.width = 8, fig.height = 3}
 plot_ <- violence%>%
-  ggplot(aes(x=riots60,y=tvPC60))+
+  ggplot(aes(x=lrgdp70,y=democ70))+
   geom_point(position = "jitter")+
-  geom_smooth()+
-  xlab("Number of riots in the 60s")+
-  ylab("TVs per capita in the 60s")
-
-plot_
-```
-
-```{r, fig.width = 8, fig.height = 3}
-plot_ <- violence%>%
-  ggplot(aes(x=riots70,y=democ70))+
-  geom_point(position = "jitter")+
-  geom_smooth()+
-  xlab("Number of riots in the 70s")+
-  ylab("Quality of democracy in the 70s")
-
-plot_
-```
-
-
-```{r, fig.width = 8, fig.height = 3}
-plot_ <- violence%>%
-  ggplot(aes(x=tvPC70,y=democ70))+
-  geom_point(position = "jitter")+
-  geom_smooth()+
-  xlab("TVs per capita in the 70s")+
+  geom_smooth(method="lm")+
+  xlab("GDP per capita in the 70s")+
   ylab("Quality of the democracy in the 70s")
 
 plot_
 ```
-
-
 ```{r, fig.width = 8, fig.height = 3}
-plot_ <- violence%>%
-  ggplot(aes(x=newspaperPC60,y=riots60))+
-  geom_point()+
-  geom_smooth()+
-  xlab("Number of riots in the 60s")+
-  ylab("Number of Government Crisis in the 60s")
+plot_2 <- violence%>%
+  ggplot(aes(x=lrgdp80,y=democ80))+
+  geom_point(position = "jitter")+
+  geom_smooth(method="lm")+
+  xlab("GDP per capita in the 80s")+
+  ylab("Quality of the democracy in the 80s")
 
-plot_
+plot_2
 ```
 
-
-```{r, fig.width = 11, fig.height = 4}
-plot_ <- 
-ggplot(data = violence, mapping = aes(x = agovdem60, y = govtcris60)) +
-geom_line(mapping = aes(group = country), color = "gray70") +
-geom_smooth(method = "loess", se = FALSE, size=1.1) +
-labs (x = "antigovernment protests", y = "Major Governemnt Crisis", title = "Antigovernment and Governmental Crisis", caption = "Source: Violence") +
-facet_wrap(~continent, nrow = 1) 
+## Although these graphs appear to back up my prediction, namely that the quality of democracy (lower to zero is a better democracy) shares a negative relationship with the explanatory variable of higher log-GDP, we must also consider the confounding variables that might also share a correlation, have an effect on, or help to explain the quality of democracy. To do this, I discovered several confounders present in the Political Violence data set, including TVs per 1000 population, the number of riots in the given country, infant mortality rate, and population, which can all be divided into the following groups, respectively, access to information, political unrest, healthcare and living standards, and population. While, of course, there could be other confounding variables, like level of education, I am only considering the confounders present in the data sent because those are the values I can use to create a multivariate regression. 
+## To address, to some degree, the question of confounders, I put the following additional explanatory variables into a multivariate regression to receive the following results. 
 
 
-plot_ 
+```{r}
+
+lm1 <- lm(data = violence, formula = democ70 ~ lrgdp70 + wdiinfmt70 + tvPC70 + riots70 + pop70)
+summary(lm1)
+
 ```
+```{r}
+
+lm2 <- lm(data = violence, formula = democ80 ~ lrgdp80 + wdiinfmt80 + tvPC80 + riots80 + pop80)
+summary(lm2)
+
+```
+
+##In the above multivariate regression models, and as previously mentioned above, we include features that we hypothesize could be predictive of the quality of democracy, as measured by Gastil. These predictors fall into the following categories of economic prosperity (log-GDP), access to information (TVs), political unrest (riots during the decade), healthcare and living standards (infant mortality rate), and population. This model displays whether these factors can together explain the variance in the quality of democracy in the 70s and 80s. It is important to note that we did not include other factors because either they lack a significant amount of data, or they are likely already categorized by another value (i.e. number of Radios per 1000 population or number of newspapers per capita all speak to the question of access to information which is already displayed through the variable TV’s per 1000 population). 
+##Astonishingly, we notice that the value for log-GDP is significant in the 70s, while it is not significant in the 80s. In the 70s, the log-GDP p-value is 0.02, whereas it rises above the 0.05 significance threshold in the 80s with a p-value of 0.77 On the other hand, we notice that the variable, infant mortality rate, is not significant in the 70s with a p-value of 0.42 but is highly significant in the 80s with a p-value of .0002. Although it is difficult to explain these drastic differences between decades, one possible explanation could be additional confounding variables that were present in those respective decades and have a significant influence on my regression results.  
+##While we are able to explain a portion of the variance as evidenced by the Multiple R-squared and adjusted R-squared values being greater than 0.5, we find that this model lacks inferential power for all but two of the features of interest, as only two of them meet the 0.05 threshold—albeit in two different decades—for statistical significance (log-GDP and infant mortality rate)  as measured by their p-values. We suspect that this is likely due to a combination of factors: first, missing values exist for several of the predictors, and the default handling of NA values is to drop those observations from the analysis, leaving us with fewer than 100 observations. Second, some of the predictors have low variance themselves (for instance, the riots indicator is interesting but with a median value of 0 is not as informative as hoped). 
+##My main coefficient of interest is log-GDP, as this is a well-measured variable that we suspect is often correlated with a host of sociopolitical outcomes. In the above model with the given additional explanatory values included, it does achieve statistical significance in the 70s, with a p-value less than my threshold of 0.05. However, this is not the case in the 80s where the p-value is above the threshold of 0.05. In both the 70s and 80s my coefficient of the log-GDP variable is negative, which suggests a negative correlation between this explanatory variable and the outcome variable (quality of democracy). This supports my original hypothesis that wealthier nations tend to have stronger political institutions. It is important to note that we can only draw the previous conclusion for the 70s as in the 80s Log-GDP is no longer significant. Additionally, we are faced with a slew of limitations that may or may not play a role in my results.
+##However, despite the fact that the log-GDP variable was observed to be significant in the 70s, we would not draw a causal relationship between it and the outcome variable. Multivariate regression models are better suited to inferential studies of association rather than causation, and in this particular example, it could also be the case that the quality of a state's democracy could create conditions for economic success and vice versa.
+
+##Conclusion
+
+##As in dictated by the results, we can only partially affirm my prior prediction that there is a negative correlation between the outcome variable, measure of democracy, and the explanatory variable, log-GDP. These results displayed statistical significance between these variables in the 70s but not in the 80s. At the same time, we discovered something surprising. In the 80s, the infant mortality rate was extremely significant and was the only significant value in my multivariate regression. While these differing significances—in the 70s, Log-GDP was significant, and in the 80s, the infant mortality rate was significant—are interesting discoveries, they do not indicate causality. Additionally, a more complex and expansive research project may discover why we saw this difference in the 70s and 80s.  
+##My project was limited by several factors, the most significant being time and the inherent limitations found in the data set. A more expansive project would have included elements like robust checks to see how additional explanatory factors influence the regression. Additionally, the Political Violence data set did not include many social indicators that could serve as confounding variables. Without the inclusion of many factors, including but certainly not limited to divorce rate, level of education, and religious divisions., it becomes increasingly difficult to confidently affirm any significance found in my data set.
+
 
