@@ -31,14 +31,14 @@ violence <- read.csv("violence.csv")
 ```{r}
 ggplot(violence, aes(democ70)) +
   geom_histogram() +
-  labs(x="Number of countries", y="Democracy score in the 70s")
+  labs(x="Democracy score in the 70s", y="Number of countries")
 
 ```
 
 ```{r}
 ggplot(violence, aes(democ80)) +
   geom_histogram()+
-  labs(x="Number of countries", y="Democracy score in the 80s")
+  labs(x="Democracy score in the 80s", y="Number of countries")
 ```
 
 ##In my project, I would like to explore and determine whether there is indeed a negative correlation between the quality of democracy and the economic prosperity of a given country. I predict that my results will display a negative correlation, with the measure of democracy being the dependent variable and the log of the GDP per capita being the independent variable. To prove this, I will look to see if there is increased economic prosperity when there is a higher democracy score for a given country (value closer to 0 on the y-axis). The Political Violence data set is made up of 208 identified government structures indicated by "country." For each variable, there are also three data sets divided by year, and I will look at only two (70s, 80s) because the measure of democracy was not given for the 1960s in the data set for any country. 
